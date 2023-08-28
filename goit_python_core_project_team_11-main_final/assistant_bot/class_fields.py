@@ -1,8 +1,16 @@
 from datetime import date
 import re
+from abc import ABC, abstractmethod
+
+
+class UserInterface(ABC):
+
+    @abstractmethod
+    def display(self):
+        pass
 
 # Parent class
-class Field:
+class Field(UserInterface):
 
     def __init__(self, value: any) -> None:
         self.__value = value
@@ -39,11 +47,13 @@ class Field:
         return str(self.__value) if self.__value else ""
 # Child classes 
 class Name(Field):
-    ...
+    def display(self):
+        return f"Name: {self.value}"
 
 
 class Address(Field):
-    ...
+    def display(self):
+        return f"Address: {self.value}"
 
 class Email(Field):
 
@@ -51,6 +61,9 @@ class Email(Field):
         self.__value = None
         self.value = value
         super().__init__(value)
+    
+    def display(self):
+        return f"Email: {self.value}"
 
 
     def find_all_emails(self, text):
@@ -77,6 +90,8 @@ class Phone(Field):
         self.value = value
         super().__init__(value)
 
+    def display(self):
+        return f"Phone: {self.value}"
 
     def phone_length(self, test_str: str) -> int:
         """Calculate length of string of digitals only chars
@@ -128,6 +143,9 @@ class Birthday(Field):
         self.value = value
         super().__init__(value)
 
+    def display(self):
+        return f"Birthday: {self.value}"
+    
     @property
     def value(self):
         return self.__value
@@ -152,9 +170,12 @@ class Birthday(Field):
 
 
 class Tag(Field):
-    ...
+    def display(self):
+        return f"Tag: {self.value}"
+    
     
 
 class Note(Field):
-    ...
+    def display(self):
+        return f"Note: {self.value}"
 
